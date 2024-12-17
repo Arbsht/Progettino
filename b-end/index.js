@@ -15,10 +15,17 @@ app.get('/', function (req, res) {
     app.use('/', express.static(__dirname + "/"));
     res.sendFile(path.join(__dirname,'www/index.html'));
     });
-app.get('/css/stile.css', function (req, res) {
+
+app.get('/api/image/btnnp', function (req, res) {
     app.use('/', express.static(__dirname + "/"));
-    res.sendFile(path.join(__dirname,'www/css/stile.css'));
+    res.sendFile(path.join(__dirname,'www/bottonenonpremuto.png'));
     });
+
+app.get('/api/image/btnp', function (req, res) {
+    app.use('/', express.static(__dirname + "/"));
+    res.sendFile(path.join(__dirname,'www/bottonepremuto.png'));
+    });
+
 app.get('/api/prova', (req, res) => {
     fs.readFile('./www/prova.json', 'utf8', (err, data) => {
     if (err) {

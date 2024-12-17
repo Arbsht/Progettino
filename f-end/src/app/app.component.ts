@@ -5,7 +5,7 @@ import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NgIf],
+  imports: [NgIf],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -14,18 +14,32 @@ export class AppComponent {
   domanda1: any;
   domanda2: any;
   randomj = false;
+  premuto = false; 
+  avviato = false;
+  contatore = 0;
+  nuhuh = -1;
 
   domanda() {
     if (this.randomj == false) {
       fetch('http://127.0.0.1:3000/api/prova').then(response => response.json()).then(data=> {
+        this.avviato = true;
         this.domanda1 = Object.keys(data)[0];
         this.domanda2 = data[this.domanda1];
+        if (this.premuto == false){
+          this.nuhuh = this.nuhuh + 1
+        }
+        this.premuto = false;
       })
     }
     else {
       fetch('http://127.0.0.1:3000/api/provarnd').then(response => response.json()).then(data=> {
+        this.avviato = true;
         this.domanda1 = Object.keys(data)[0];
         this.domanda2 = data[this.domanda1];
+        if (this.premuto == false){
+          this.nuhuh = this.nuhuh + 1
+        }
+        this.premuto = false;
       })
     }
     
@@ -37,6 +51,19 @@ export class AppComponent {
     }
     else {
       this.randomj = false;
+    }
+  }
+
+  premutotoggle(){
+    if (this.premuto == false) {
+      this.premuto = true;
+      if (this.avviato == true) {
+        this.contatore = this.contatore + 1;
+      }
+      
+    }
+    else {
+      this.premuto = false;
     }
   }
 }
